@@ -39,14 +39,14 @@ function validateMdxFile(filename: string): ValidationResult {
     }
 
     // Check if referenced assets exist (for local paths)
-    if (data.assets?.poster && data.assets.poster.startsWith("/")) {
+    if (data.assets?.poster?.startsWith("/")) {
       const posterPath = path.join(PUBLIC_DIR, data.assets.poster);
       if (!fs.existsSync(posterPath)) {
         result.warnings.push(`Poster file not found: ${data.assets.poster}`);
       }
     }
 
-    if (data.assets?.src && data.assets.src.startsWith("/")) {
+    if (data.assets?.src?.startsWith("/")) {
       const srcPath = path.join(PUBLIC_DIR, data.assets.src);
       if (!fs.existsSync(srcPath)) {
         result.warnings.push(`Source file not found: ${data.assets.src}`);
@@ -56,9 +56,7 @@ function validateMdxFile(filename: string): ValidationResult {
     // Check if slug is valid
     const slug = filename.replace(/\.mdx$/, "");
     if (!/^[a-z0-9-]+$/.test(slug)) {
-      result.errors.push(
-        "Invalid filename: must be lowercase alphanumeric with hyphens only"
-      );
+      result.errors.push("Invalid filename: must be lowercase alphanumeric with hyphens only");
       result.valid = false;
     }
 
@@ -118,9 +116,7 @@ function main() {
     }
   }
 
-  console.log(
-    `\n📊 Summary: ${results.filter((r) => r.valid).length}/${results.length} valid\n`
-  );
+  console.log(`\n📊 Summary: ${results.filter((r) => r.valid).length}/${results.length} valid\n`);
 
   if (hasErrors) {
     process.exit(1);

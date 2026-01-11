@@ -28,10 +28,7 @@ export function TagList({ tags }: TagListProps) {
   return (
     <div className="flex flex-wrap gap-2 my-4">
       {tags.map((tag) => (
-        <span
-          key={tag}
-          className="px-3 py-1 bg-black/5 dark:bg-white/5 rounded text-sm"
-        >
+        <span key={tag} className="px-3 py-1 bg-black/5 dark:bg-white/5 rounded text-sm">
           {tag}
         </span>
       ))}
@@ -87,9 +84,7 @@ export const mdxComponents: MDXComponents = {
   TagList,
   MediaEmbed,
   PromptBlock,
-  h1: ({ children }) => (
-    <h1 className="text-3xl font-bold mt-8 mb-4 first:mt-0">{children}</h1>
-  ),
+  h1: ({ children }) => <h1 className="text-3xl font-bold mt-8 mb-4 first:mt-0">{children}</h1>,
   h2: ({ children }) => <h2 className="text-2xl font-bold mt-6 mb-3">{children}</h2>,
   h3: ({ children }) => <h3 className="text-xl font-bold mt-4 mb-2">{children}</h3>,
   p: ({ children }) => <p className="my-4 leading-relaxed">{children}</p>,
@@ -102,9 +97,7 @@ export const mdxComponents: MDXComponents = {
     </code>
   ),
   pre: ({ children }) => (
-    <pre className="my-4 p-4 bg-black/5 dark:bg-white/5 rounded overflow-x-auto">
-      {children}
-    </pre>
+    <pre className="my-4 p-4 bg-black/5 dark:bg-white/5 rounded overflow-x-auto">{children}</pre>
   ),
   blockquote: ({ children }) => (
     <blockquote className="my-4 pl-4 border-l-4 border-black/10 dark:border-white/10 italic">

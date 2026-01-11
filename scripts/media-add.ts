@@ -120,20 +120,12 @@ async function main() {
     const mediaSource = (source || "sora") as MediaInput["source"];
 
     const tagsInput = await prompt(rl, "Tags (comma-separated)");
-    const tags = tagsInput
-      ? tagsInput.split(",").map((t) => t.trim())
-      : [];
+    const tags = tagsInput ? tagsInput.split(",").map((t) => t.trim()) : [];
 
     const description = await prompt(rl, "Description (optional)");
 
-    const posterPath = await prompt(
-      rl,
-      "Poster image path (optional, e.g., /media/poster.jpg)"
-    );
-    const srcPath = await prompt(
-      rl,
-      "Media source path (optional, e.g., /media/video.mp4)"
-    );
+    const posterPath = await prompt(rl, "Poster image path (optional, e.g., /media/poster.jpg)");
+    const srcPath = await prompt(rl, "Media source path (optional, e.g., /media/video.mp4)");
 
     let soraUsername: string | undefined;
     let soraPrompt: string | undefined;
@@ -172,8 +164,8 @@ async function main() {
     fs.writeFileSync(filePath, content, "utf-8");
 
     console.log(`\n✅ Created: content/media/${filename}`);
-    console.log(`\nEdit the file to add your content, then run:`);
-    console.log(`  bun run media:validate`);
+    console.log("\nEdit the file to add your content, then run:");
+    console.log("  bun run media:validate");
   } finally {
     rl.close();
   }

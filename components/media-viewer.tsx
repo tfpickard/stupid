@@ -1,5 +1,5 @@
+import type { MediaItem } from "@/lib/schema";
 import Image from "next/image";
-import { MediaItem } from "@/lib/schema";
 
 interface MediaViewerProps {
   item: MediaItem;
@@ -11,12 +11,7 @@ export function MediaViewer({ item }: MediaViewerProps) {
   if (type === "video") {
     return (
       <div className="aspect-video bg-black">
-        <video
-          controls
-          poster={assets.poster}
-          className="w-full h-full"
-          preload="metadata"
-        >
+        <video controls poster={assets.poster} className="w-full h-full" preload="metadata">
           {assets.sources?.map((source) => (
             <source key={source.src} src={source.src} type={source.type} />
           ))}

@@ -1,12 +1,12 @@
-import { notFound } from "next/navigation";
-import Link from "next/link";
-import { format } from "date-fns";
-import { MDXRemote } from "next-mdx-remote/rsc";
 import { Header } from "@/components/header";
-import { MediaViewer } from "@/components/media-viewer";
 import { mdxComponents } from "@/components/mdx-components";
-import { getMediaBySlug, getAllSlugs, getAllMedia } from "@/lib/content";
+import { MediaViewer } from "@/components/media-viewer";
+import { getAllMedia, getAllSlugs, getMediaBySlug } from "@/lib/content";
+import { format } from "date-fns";
 import type { Metadata } from "next";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import Link from "next/link";
+import { notFound } from "next/navigation";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -94,9 +94,7 @@ export default async function MediaDetailPage({ params }: PageProps) {
             </div>
 
             {item.description && (
-              <p className="text-lg mb-6 text-black/80 dark:text-white/80">
-                {item.description}
-              </p>
+              <p className="text-lg mb-6 text-black/80 dark:text-white/80">{item.description}</p>
             )}
 
             {item.tags.length > 0 && (
@@ -155,12 +153,8 @@ export default async function MediaDetailPage({ params }: PageProps) {
                   href={`/m/${prevItem.slug}`}
                   className="group block hover:text-accent transition-colors"
                 >
-                  <div className="text-xs text-black/40 dark:text-white/40 mb-1">
-                    ← Previous
-                  </div>
-                  <div className="text-sm font-medium group-hover:underline">
-                    {prevItem.title}
-                  </div>
+                  <div className="text-xs text-black/40 dark:text-white/40 mb-1">← Previous</div>
+                  <div className="text-sm font-medium group-hover:underline">{prevItem.title}</div>
                 </Link>
               )}
             </div>
@@ -171,9 +165,7 @@ export default async function MediaDetailPage({ params }: PageProps) {
                   className="group block hover:text-accent transition-colors"
                 >
                   <div className="text-xs text-black/40 dark:text-white/40 mb-1">Next →</div>
-                  <div className="text-sm font-medium group-hover:underline">
-                    {nextItem.title}
-                  </div>
+                  <div className="text-sm font-medium group-hover:underline">{nextItem.title}</div>
                 </Link>
               )}
             </div>

@@ -1,7 +1,7 @@
-import Link from "next/link";
-import Image from "next/image";
-import { MediaItem } from "@/lib/schema";
+import type { MediaItem } from "@/lib/schema";
 import { format } from "date-fns";
+import Image from "next/image";
+import Link from "next/link";
 
 interface MediaCardProps {
   item: MediaItem;
@@ -43,10 +43,7 @@ export function MediaCard({ item }: MediaCardProps) {
         {tags.length > 0 && (
           <div className="flex flex-wrap gap-1">
             {tags.map((tag) => (
-              <span
-                key={tag}
-                className="text-xs px-2 py-1 bg-black/5 dark:bg-white/5 rounded"
-              >
+              <span key={tag} className="text-xs px-2 py-1 bg-black/5 dark:bg-white/5 rounded">
                 {tag}
               </span>
             ))}

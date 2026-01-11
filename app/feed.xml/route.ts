@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
 import { generateRssFeed } from "@/lib/rss";
+import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 

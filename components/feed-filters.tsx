@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { MediaType } from "@/lib/schema";
+import type { MediaType } from "@/lib/schema";
+import { useCallback, useState } from "react";
 
 interface FeedFiltersProps {
   onFilterChange: (filters: {

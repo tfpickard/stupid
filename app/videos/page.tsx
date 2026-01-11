@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Header } from "@/components/header";
 import { FeedFilters } from "@/components/feed-filters";
+import { Header } from "@/components/header";
 import { InfiniteFeed } from "@/components/infinite-feed";
-import { FeedResponse } from "@/lib/schema";
+import type { FeedResponse } from "@/lib/schema";
+import { useEffect, useState } from "react";
 
 export default function VideosPage() {
   const [feedData, setFeedData] = useState<FeedResponse | null>(null);

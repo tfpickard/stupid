@@ -1,5 +1,5 @@
-import { MediaItem } from "./schema";
 import { getAllMedia } from "./content";
+import { MediaItem } from "./schema";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://stupid.hair";
 const SITE_TITLE = "stupid.hair";

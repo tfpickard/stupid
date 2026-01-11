@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
-import { MediaFrontmatter, MediaFrontmatterSchema, MediaItem } from "./schema";
+import { MediaFrontmatter, MediaFrontmatterSchema, type MediaItem } from "./schema";
 
 const CONTENT_DIR = path.join(process.cwd(), "content/media");
 

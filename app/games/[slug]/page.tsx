@@ -1,7 +1,7 @@
-import { notFound } from "next/navigation";
-import Link from "next/link";
 import { Header } from "@/components/header";
 import { getMediaBySlug } from "@/lib/content";
+import Link from "next/link";
+import { notFound } from "next/navigation";
 
 interface PageProps {
   params: Promise<{ slug: string }>;

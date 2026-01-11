@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
-import { MediaItem, MediaType, FeedResponse } from "@/lib/schema";
+import type { FeedResponse, MediaItem, MediaType } from "@/lib/schema";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { MediaCard } from "./media-card";
 
 interface InfiniteFeedProps {
@@ -34,7 +34,7 @@ export function InfiniteFeed({
     setCursor(initialCursor);
     setHasMore(initialHasMore);
     setError(null);
-  }, [initialItems, initialCursor, initialHasMore, filters]);
+  }, [initialItems, initialCursor, initialHasMore]);
 
   const loadMore = useCallback(async () => {
     if (loading || !hasMore || !cursor) return;
@@ -95,27 +95,19 @@ export function InfiniteFeed({
       </div>
 
       {items.length === 0 && !loading && (
-        <div className="text-center py-12 text-black/40 dark:text-white/40">
-          No items found.
-        </div>
+        <div className="text-center py-12 text-black/40 dark:text-white/40">No items found.</div>
       )}
 
       {loading && (
         <div className="text-center py-8 text-black/40 dark:text-white/40">Loading...</div>
       )}
 
-      {error && (
-        <div className="text-center py-8 text-red-500">
-          Error: {error}
-        </div>
-      )}
+      {error && <div className="text-center py-8 text-red-500">Error: {error}</div>}
 
       {!loading && hasMore && <div ref={observerTarget} className="h-20" />}
 
       {!loading && !hasMore && items.length > 0 && (
-        <div className="text-center py-8 text-black/40 dark:text-white/40">
-          End of feed.
-        </div>
+        <div className="text-center py-8 text-black/40 dark:text-white/40">End of feed.</div>
       )}
     </div>
   );

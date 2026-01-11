@@ -21,11 +21,7 @@ export function Header() {
             <Link href="/games" className="hover:opacity-70 transition-opacity">
               Games
             </Link>
-            <Link
-              href="/rss.xml"
-              className="hover:opacity-70 transition-opacity"
-              target="_blank"
-            >
+            <Link href="/rss.xml" className="hover:opacity-70 transition-opacity" target="_blank">
               RSS
             </Link>
           </nav>

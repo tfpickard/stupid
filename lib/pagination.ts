@@ -1,5 +1,5 @@
-import { MediaItem, FeedResponse, FeedQuery } from "./schema";
-import { getAllMedia, searchMedia, getMediaByType, getMediaByTag } from "./content";
+import { getAllMedia, getMediaByTag, getMediaByType, searchMedia } from "./content";
+import type { FeedQuery, FeedResponse, MediaItem } from "./schema";
 
 /**
  * Create a cursor from a media item (createdAt + slug for uniqueness)
@@ -54,9 +54,7 @@ export function getPaginatedFeed(query: FeedQuery): FeedResponse {
     if (parsed) {
       const { date, slug } = parsed;
       // Find the index of the cursor item
-      const cursorIndex = items.findIndex(
-        (item) => item.createdAt === date && item.slug === slug
-      );
+      const cursorIndex = items.findIndex((item) => item.createdAt === date && item.slug === slug);
       if (cursorIndex !== -1) {
         // Start from the next item after the cursor
         items = items.slice(cursorIndex + 1);
