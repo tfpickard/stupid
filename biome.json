@@ -28,13 +28,6 @@
     }
   },
   "files": {
-    "ignore": [
-      "node_modules",
-      ".next",
-      "out",
-      "dist",
-      ".generated",
-      "bun.lockb"
-    ]
+    "ignore": ["node_modules", ".next", "out", "dist", ".generated", "bun.lockb"]
   }
 }

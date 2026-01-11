@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
 import { getAllTags } from "@/lib/content";
+import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 

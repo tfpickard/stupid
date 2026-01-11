@@ -45,7 +45,8 @@ export class SoraClient {
 
   constructor(config: SoraClientConfig = {}) {
     this.apiKey = config.apiKey || process.env.SORA_API_KEY;
-    this.baseUrl = config.baseUrl || process.env.SORA_API_BASE_URL || "https://api.openai.com/v1/sora";
+    this.baseUrl =
+      config.baseUrl || process.env.SORA_API_BASE_URL || "https://api.openai.com/v1/sora";
     this.rssUrl = config.rssUrl || process.env.SORA_RSS_URL;
   }
 
@@ -121,13 +122,13 @@ export class SoraClient {
   /**
    * Normalize API response to SoraVideo format
    */
-  private normalizeAPIResponse(data: any): SoraVideo[] {
+  private normalizeAPIResponse(data: Record<string, unknown>): SoraVideo[] {
     // Adjust this based on actual Sora API response format
     if (!data.videos || !Array.isArray(data.videos)) {
       return [];
     }
 
-    return data.videos.map((video: any) => ({
+    return data.videos.map((video: Record<string, unknown>) => ({
       id: video.id || video.video_id,
       title: video.title || `Sora Creation ${video.id}`,
       prompt: video.prompt || "",
@@ -151,10 +152,12 @@ export class SoraClient {
     // In production, use a proper XML parser like 'fast-xml-parser'
     const videos: SoraVideo[] = [];
     const itemRegex = /<item>([\s\S]*?)<\/item>/g;
-    let match;
-    let count = 0;
+    const matches = xml.matchAll(itemRegex);
 
-    while ((match = itemRegex.exec(xml)) !== null && count < limit) {
+    let count = 0;
+    for (const match of matches) {
+      if (count >= limit) break;
+
       const item = match[1];
       const video = this.parseRSSItem(item);
       if (video) {
@@ -188,7 +191,7 @@ export class SoraClient {
 
       return {
         id,
-        title: getCDATA("title") || `Sora Creation`,
+        title: getCDATA("title") || "Sora Creation",
         prompt: getCDATA("description") || getCDATA("content:encoded") || "",
         username: getTag("dc:creator") || "unknown",
         createdAt: getTag("pubDate") || new Date().toISOString(),
@@ -241,9 +244,6 @@ export const soraClient = new SoraClient();
 /**
  * Convenience function to fetch user videos
  */
-export async function fetchSoraUserVideos(
-  username: string,
-  limit = 20
-): Promise<SoraVideo[]> {
+export async function fetchSoraUserVideos(username: string, limit = 20): Promise<SoraVideo[]> {
   return soraClient.fetchUserVideos(username, limit);
 }

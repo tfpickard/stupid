@@ -20,7 +20,7 @@ function main() {
     fs.writeFileSync(INDEX_FILE, JSON.stringify(index, null, 2), "utf-8");
 
     console.log(`✅ Index built: ${index.length} items`);
-    console.log(`📝 Written to: .generated/media-index.json\n`);
+    console.log("📝 Written to: .generated/media-index.json\n");
 
     // Show stats
     const stats = {

@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Header } from "@/components/header";
 import { FeedFilters } from "@/components/feed-filters";
+import { Header } from "@/components/header";
 import { InfiniteFeed } from "@/components/infinite-feed";
-import { MediaType, FeedResponse } from "@/lib/schema";
+import type { FeedResponse, MediaType } from "@/lib/schema";
+import { useEffect, useState } from "react";
 
 export default function HomePage() {
   const [feedData, setFeedData] = useState<FeedResponse | null>(null);
@@ -51,9 +51,7 @@ export default function HomePage() {
       <FeedFilters onFilterChange={setFilters} availableTags={tags} />
       <main className="container mx-auto px-4 py-8">
         {loading ? (
-          <div className="text-center py-12 text-black/40 dark:text-white/40">
-            Loading feed...
-          </div>
+          <div className="text-center py-12 text-black/40 dark:text-white/40">Loading feed...</div>
         ) : feedData ? (
           <InfiniteFeed
             initialItems={feedData.items}

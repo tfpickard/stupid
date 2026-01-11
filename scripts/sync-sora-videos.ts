@@ -12,8 +12,8 @@
 
 import fs from "node:fs";
 import path from "node:path";
-import { fetchSoraUserVideos, type SoraVideo } from "../lib/sora-api";
 import { getAllMedia } from "../lib/content";
+import { type SoraVideo, fetchSoraUserVideos } from "../lib/sora-api";
 
 const CONTENT_DIR = path.join(process.cwd(), "content/media");
 const PUBLIC_MEDIA_DIR = path.join(process.cwd(), "public/media");
@@ -63,18 +63,13 @@ function generateSlug(video: SoraVideo): string {
  */
 function videoExists(soraId: string): boolean {
   const existing = getAllMedia(true);
-  return existing.some(
-    (item) => item.source === "sora" && item.sora?.soraId === soraId
-  );
+  return existing.some((item) => item.source === "sora" && item.sora?.soraId === soraId);
 }
 
 /**
  * Download video file
  */
-async function downloadVideo(
-  url: string,
-  filename: string
-): Promise<string | null> {
+async function downloadVideo(url: string, filename: string): Promise<string | null> {
   if (DRY_RUN) {
     console.log(`  [DRY RUN] Would download: ${url}`);
     return `/media/${filename}`;
@@ -94,7 +89,7 @@ async function downloadVideo(
     console.log(`  ✓ Saved to: ${filepath}`);
     return `/media/${filename}`;
   } catch (error) {
-    console.error(`  ✗ Failed to download video:`, error);
+    console.error("  ✗ Failed to download video:", error);
     return null;
   }
 }
@@ -102,10 +97,7 @@ async function downloadVideo(
 /**
  * Download poster/thumbnail
  */
-async function downloadPoster(
-  url: string | undefined,
-  filename: string
-): Promise<string | null> {
+async function downloadPoster(url: string | undefined, filename: string): Promise<string | null> {
   if (!url) return null;
 
   if (DRY_RUN) {
@@ -127,7 +119,7 @@ async function downloadPoster(
     console.log(`  ✓ Saved poster to: ${filepath}`);
     return `/media/${filename}`;
   } catch (error) {
-    console.error(`  ✗ Failed to download poster:`, error);
+    console.error("  ✗ Failed to download poster:", error);
     return null;
   }
 }
@@ -183,15 +175,13 @@ async function createVideoMDX(video: SoraVideo): Promise<boolean> {
   const videoFilename = `${slug}.mp4`;
   const localVideoPath = await downloadVideo(video.videoUrl, videoFilename);
   if (!localVideoPath) {
-    console.error(`  ✗ Failed to download video, skipping`);
+    console.error("  ✗ Failed to download video, skipping");
     return false;
   }
 
   // Download poster if available
   const posterFilename = `${slug}-poster.jpg`;
-  const posterPath = video.posterUrl
-    ? await downloadPoster(video.posterUrl, posterFilename)
-    : null;
+  const posterPath = video.posterUrl ? await downloadPoster(video.posterUrl, posterFilename) : null;
 
   // Generate MDX content
   const mdxContent = generateMDX(video, localVideoPath, posterPath);
@@ -271,7 +261,7 @@ async function syncSoraVideos() {
 
     // Check if already exists
     if (videoExists(video.id) && !FORCE) {
-      console.log(`  ⊘ Already synced (use --force to re-sync)`);
+      console.log("  ⊘ Already synced (use --force to re-sync)");
       skipped++;
       console.log("");
       continue;
