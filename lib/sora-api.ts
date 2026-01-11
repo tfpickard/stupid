@@ -128,20 +128,24 @@ export class SoraClient {
       return [];
     }
 
-    return data.videos.map((video: Record<string, unknown>) => ({
-      id: video.id || video.video_id,
-      title: video.title || `Sora Creation ${video.id}`,
-      prompt: video.prompt || "",
-      username: video.username || video.author?.username,
-      createdAt: video.created_at || video.createdAt || new Date().toISOString(),
-      videoUrl: video.video_url || video.url,
-      posterUrl: video.poster_url || video.thumbnail_url,
-      model: video.model || "sora-1.0",
-      duration: video.duration,
-      width: video.width || 1920,
-      height: video.height || 1080,
-      tags: video.tags || [],
-    }));
+    return data.videos.map((video: Record<string, unknown>) => {
+      const author = video.author as Record<string, unknown> | undefined;
+      return {
+        id: (video.id || video.video_id) as string,
+        title: (video.title as string) || `Sora Creation ${video.id}`,
+        prompt: (video.prompt as string) || "",
+        username: (video.username as string) || (author?.username as string) || "",
+        createdAt:
+          (video.created_at as string) || (video.createdAt as string) || new Date().toISOString(),
+        videoUrl: (video.video_url as string) || (video.url as string),
+        posterUrl: (video.poster_url as string) || (video.thumbnail_url as string) || undefined,
+        model: (video.model as string) || "sora-1.0",
+        duration: video.duration as number | undefined,
+        width: (video.width as number) || 1920,
+        height: (video.height as number) || 1080,
+        tags: (video.tags as string[]) || [],
+      };
+    });
   }
 
   /**
