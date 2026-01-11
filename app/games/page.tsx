@@ -1,0 +1,78 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { Header } from "@/components/header";
+import { FeedFilters } from "@/components/feed-filters";
+import { InfiniteFeed } from "@/components/infinite-feed";
+import { FeedResponse } from "@/lib/schema";
+
+export default function GamesPage() {
+  const [feedData, setFeedData] = useState<FeedResponse | null>(null);
+  const [tags, setTags] = useState<string[]>([]);
+  const [filters, setFilters] = useState<{
+    search?: string;
+    tag?: string;
+  }>({});
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchInitialData() {
+      try {
+        setLoading(true);
+        const params = new URLSearchParams({ limit: "20", type: "game" });
+        if (filters.search) params.set("search", filters.search);
+        if (filters.tag) params.set("tag", filters.tag);
+
+        const [feedRes, tagsRes] = await Promise.all([
+          fetch(`/api/feed?${params.toString()}`),
+          fetch("/api/tags"),
+        ]);
+
+        const feedData: FeedResponse = await feedRes.json();
+        const tagsData: string[] = tagsRes.ok ? await tagsRes.json() : [];
+
+        setFeedData(feedData);
+        setTags(tagsData);
+      } catch (error) {
+        console.error("Failed to fetch data:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchInitialData();
+  }, [filters]);
+
+  return (
+    <div className="min-h-screen">
+      <Header />
+      <div className="border-b border-black/10 dark:border-white/10 py-4">
+        <div className="container mx-auto px-4">
+          <h1 className="text-2xl font-bold">Games</h1>
+          <p className="text-sm text-black/60 dark:text-white/60 mt-1">
+            Interactive experiments and playable art
+          </p>
+        </div>
+      </div>
+      <FeedFilters onFilterChange={setFilters} availableTags={tags} />
+      <main className="container mx-auto px-4 py-8">
+        {loading ? (
+          <div className="text-center py-12 text-black/40 dark:text-white/40">
+            Loading games...
+          </div>
+        ) : feedData ? (
+          <InfiniteFeed
+            initialItems={feedData.items}
+            initialCursor={feedData.nextCursor}
+            initialHasMore={feedData.hasMore}
+            filters={{ ...filters, type: "game" }}
+          />
+        ) : (
+          <div className="text-center py-12 text-black/40 dark:text-white/40">
+            Failed to load games.
+          </div>
+        )}
+      </main>
+    </div>
+  );
+}

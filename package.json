@@ -1,0 +1,37 @@
+{
+  "name": "stupid-hair",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
+    "type-check": "tsc --noEmit",
+    "media:add": "bun run scripts/media-add.ts",
+    "media:validate": "bun run scripts/media-validate.ts",
+    "media:build-index": "bun run scripts/media-build-index.ts"
+  },
+  "dependencies": {
+    "next": "^15.1.4",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "gray-matter": "^4.0.3",
+    "next-mdx-remote": "^5.0.0",
+    "zod": "^3.24.1",
+    "date-fns": "^4.1.0",
+    "geist": "^1.3.1"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/node": "^22.10.2",
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.2",
+    "typescript": "^5.7.2",
+    "tailwindcss": "^3.4.1",
+    "postcss": "^8.4.49",
+    "autoprefixer": "^10.4.20"
+  }
+}
