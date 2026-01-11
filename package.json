@@ -3,16 +3,21 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "setup": "./scripts/setup.sh",
+    "hooks": "./scripts/install-hooks.sh",
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
     "format": "biome format --write .",
+    "format:check": "biome format .",
     "type-check": "tsc --noEmit",
     "media:add": "bun run scripts/media-add.ts",
     "media:validate": "bun run scripts/media-validate.ts",
-    "media:build-index": "bun run scripts/media-build-index.ts"
+    "media:build-index": "bun run scripts/media-build-index.ts",
+    "sora:sync": "bun run scripts/sync-sora-videos.ts",
+    "sora:sync:dry": "bun run scripts/sync-sora-videos.ts --dry-run"
   },
   "dependencies": {
     "next": "^15.1.4",
